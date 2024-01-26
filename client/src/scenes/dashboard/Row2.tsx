@@ -58,7 +58,7 @@ const Row2 = () => {
       })
     );
   }, [productData]);
-  console.log(palette.primary);
+
   return (
     <>
       <DashboardBox gridArea="d">
