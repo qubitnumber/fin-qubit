@@ -5,13 +5,11 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema(
   {
     price: {
-      type: mongoose.Types.Currency,
-      currency: "USD",
+      type: Number,
       get: (v) => v / 100,
     },
     expense: {
-      type: mongoose.Types.Currency,
-      currency: "USD",
+      type: Number,
       get: (v) => v / 100,
     },
     transactions: [

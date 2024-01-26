@@ -9,8 +9,7 @@ const TransactionSchema = new Schema(
       required: true,
     },
     amount: {
-      type: mongoose.Types.Currency,
-      currency: "USD",
+      type: Number,
       get: (v) => v / 100,
     },
     productIds: [
