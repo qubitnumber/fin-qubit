@@ -7,7 +7,7 @@ import FormInput from "@/components/FormInput";
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-import { toast } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 import { useLoginUserMutation } from '@/redux/api/authApi';
 
 const LoadingButton = styled(_LoadingButton)`
@@ -66,7 +66,17 @@ const LoginPage = () => {
   useEffect(() => {
     if (isSuccess) {
       console.log('location', location);
-      toast.success('You successfully logged in');
+      toast.success('🦄 You successfully logged in', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       navigate(from);
     }
     if (isError) {

@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '@/redux/api/authApi';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-import { toast } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -66,7 +66,17 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('User registered successfully');
+      toast.success('🦄 User registered successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       navigate('/verifyemail');
     }
 
@@ -77,13 +87,29 @@ const RegisterPage = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).data.error.forEach((el: any) =>
           toast.error(el.message, {
-            position: 'top-right',
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
           })
         );
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         toast.error((error as any).data.message, {
-          position: 'top-right',
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
         });
       }
     }
@@ -132,7 +158,7 @@ const RegisterPage = () => {
             letterSpacing: 1,
           }}
         >
-          Welcome to CodevoWeb!
+          Welcome to FinWeb!
         </Typography>
         <Typography component='h2' sx={{ color: '#e5e7eb', mb: 2 }}>
           Sign Up To Get Started!

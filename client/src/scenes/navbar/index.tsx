@@ -45,7 +45,7 @@ const Navbar = () => {
     setSelected("logout")
     logoutUser();
   };
-  console.log('Navbar', user);
+
   return (
     <FlexBetween mb="0.25rem" p="0.5rem 0rem" color={palette.grey[300]}>
       {/* LEFT SIDE */}
