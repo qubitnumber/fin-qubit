@@ -10,12 +10,6 @@ import connectDB from './utils/connectDB.js';
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import kpiRoutes from "./routes/kpi.js";
-import productRoutes from "./routes/product.js";
-import transactionRoutes from "./routes/transaction.js";
-import KPI from "./models/KPI.js";
-import Product from "./models/Product.js";
-import Transaction from "./models/Transaction.js";
-import { kpis, products, transactions } from "./data/data.js";
 
 const app = express();
 
@@ -32,9 +26,7 @@ app.use(cors({
 /* ROUTES */
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
-app.use("/kpi", kpiRoutes);
-app.use("/product", productRoutes);
-app.use("/transaction", transactionRoutes);
+app.use("/api/kpi", kpiRoutes);
 
 app.get(
   '/api/healthChecker', (req, res, next) => {
