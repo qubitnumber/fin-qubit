@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom"
 import Navbar from "@/scenes/navbar"
 import Dashboard from "@/scenes/dashboard";
 import Predictions from "@/scenes/predictions";
-import { ToastContainer } from "react-toastify"
 import RequireUser from "@/components/RequireUser"
 import ProfilePage from "@/scenes/profile"
 import AdminPage from "@/scenes/admin"
@@ -21,7 +20,6 @@ function App() {
     <div className="app">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ToastContainer />
         <Box width="100%" height="100%" padding="1rem 2rem 4rem 2rem">
           <Navbar />
           <Routes>

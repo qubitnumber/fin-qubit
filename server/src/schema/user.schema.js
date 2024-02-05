@@ -27,3 +27,20 @@ export const loginUserSchema = z.object({
     ),
   }),
 });
+
+export const sendOtpSchema = z.object({
+  body: z.object({
+    email: z.string({ required_error: 'Email is required' }).email(
+      'Invalid email or password'
+    ),
+  }),
+});
+
+export const verifyEmailSchema = z.object({
+  params: z.object({
+    otp: z.string({ required_error: 'code is required' }).length(
+      6,
+      'Invalid code'
+    ),
+  }),
+});

@@ -10,5 +10,6 @@ export interface IUser {
 
 export interface IGenericResponse {
   status: string;
+  user: IUser;
   message: string;
 }

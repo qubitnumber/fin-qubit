@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LoginInput } from "@/scenes/login";
 import { RegisterInput } from "@/scenes/register";
-import { IGenericResponse } from "@/redux/api/types";
+import { IGenericResponse, IUser } from "@/redux/api/types";
 import { userApi } from './userApi';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL as string;
@@ -20,11 +20,20 @@ export const authApi = createApi({
           body: data,
         };
       },
+      transformResponse: (result: { status: string, message: string, data: { user: IUser }}) => {
+        return { status: result.status, user: result.data.user, message: result.message };
+      },
     }),
-    loginUser: builder.mutation<
-      { access_token: string; status: string },
-      LoginInput
-    >({
+    sendOpt: builder.mutation<IGenericResponse, { email: string }>({
+      query(data) {
+        return {
+          url: 'sendotp',
+          method: 'POST',
+          body: data,
+        };
+      },
+    }),
+    loginUser: builder.mutation<{ access_token: string; status: string, isVerified: boolean, email: string }, LoginInput>({
       query(data) {
         return {
           url: 'login',
@@ -35,19 +44,20 @@ export const authApi = createApi({
       },
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          await queryFulfilled;
-          await dispatch(userApi.endpoints.getMe.initiate(null));
-        } catch (error) {}
+          const { data } = await queryFulfilled;
+          if (data.isVerified) {
+            await dispatch(userApi.endpoints.getMe.initiate(null));
+          }
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
-    verifyEmail: builder.mutation<
-      IGenericResponse,
-      { verificationCode: string }
-    >({
+    verifyEmail: builder.mutation<{ status: string, message: string, email: string }, { verificationCode: string }>({
       query({ verificationCode }) {
         return {
           url: `verifyemail/${verificationCode}`,
-          method: 'GET',
+          method: 'POST',
         };
       },
     }),
@@ -67,4 +77,5 @@ export const {
   useRegisterUserMutation,
   useLogoutUserMutation,
   useVerifyEmailMutation,
+  useSendOptMutation,
 } = authApi;

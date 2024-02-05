@@ -1,6 +1,7 @@
 import lodash from 'lodash';
 import config from 'config';
 import userModel from '../models/user.model.js';
+import optModel from '../models/otp.model.js';
 import { excludedFields } from '../controllers/auth.controller.js';
 import { signJwt } from '../utils/jwt.js';
 import kv from '../utils/connectRedis.js';
@@ -30,6 +31,28 @@ export const findUser = async (
   return await userModel.findOne(query, {}, options).select('+password');
 };
 
+// Update one user by any fields
+export const updateUser = async (
+  filter,
+  update
+) => {
+  return await userModel.findOneAndUpdate(filter, update, {
+    new: true
+  }).select('+password');
+};
+
+// Find one OPT by any fields
+export const findOtp = async (
+  query,
+  options
+) => {
+  return await optModel.findOne(query, {}, options).select('+opt');
+};
+
+export const createOpt = async (input) => {
+  return await optModel.create(input);
+};
+
 // Sign Token
 export const signToken = async (user) => {
   // Sign the access token
@@ -44,7 +67,7 @@ export const signToken = async (user) => {
 
   // Create a Session
   await kv.set(user._id.toString(), JSON.stringify(user), {
-    ex: 3600,
+    ex: 60 * 60,
     nx: true,
   });
 

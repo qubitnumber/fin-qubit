@@ -7,11 +7,14 @@ const UserSchema = new Schema(
   {
     name: {
       type: String,
+      required: true,
+      trim: true
     },
     email: {
       type: String,
       unique: true,
-      required: true
+      required: true,
+      trim: true
     },
     password: {
       type: String,
@@ -20,14 +23,14 @@ const UserSchema = new Schema(
       maxLength: 32,
       select: false,
     },
-    email: {
-      type: String,
-      unique: true,
-      required: true
-    },
     role: {
-        type: String,
-        default: 'user',
+      type: String,
+      default: 'user',
+      enum: ['admin', 'user']
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
     },
   },
   { timestamps: true, toJSON: { getters: true } }

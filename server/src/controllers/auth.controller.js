@@ -1,9 +1,13 @@
 import config from 'config';
+import otpGenerator from 'otp-generator';
 import {
   createUser,
   findUser,
   findUserById,
   signToken,
+  findOtp,
+  createOpt,
+  updateUser,
 } from '../services/user.service.js';
 import AppError from '../utils/appError.js';
 import kv from '../utils/connectRedis.js';
@@ -37,17 +41,19 @@ if (process.env.NODE_ENV === 'production')
 
 export const registerHandler = async (req, res, next) => {
   try {
+    const {name, email, password, otp}= req.body
     const user = await createUser({
-      email: req.body.email,
-      name: req.body.name,
-      password: req.body.password,
+      email,
+      name,
+      password,
     });
 
     res.status(201).json({
       status: 'success',
       data: {
-        user,
+        user
       },
+      message: '',
     });
   } catch (err) {
     if (err.code === 11000) {
@@ -57,6 +63,45 @@ export const registerHandler = async (req, res, next) => {
       });
     }
     next(err);
+  }
+};
+
+export const sendOtpHandler = async (req, res, next) => {
+  try {
+    const { email }= req.body
+		const user = await findUser({ email });
+		if (!user) {
+			return res.status(401).json({
+				success: false,
+				message: `User is not Registered`,
+			});
+		};
+
+    let otp = otpGenerator.generate(6, {
+			upperCaseAlphabets: false,
+			lowerCaseAlphabets: false,
+			specialChars: false,
+		});
+    let result = await findOtp({ otp });
+    while (result) {
+      otp = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+      });
+      result = await findOtp({ otp });
+    };
+
+    const otpBody = await createOpt({ email, otp });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        otpBody,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+			error: error.message,
+    });
   }
 };
 
@@ -73,6 +118,15 @@ export const loginHandler = async (req, res, next) => {
       return next(new AppError('Invalid email or password', 401));
     }
 
+    if (user && !user.isVerified) {
+      res.status(200).json({
+        status: 'success',
+        access_token: '',
+        isVerified: user.isVerified,
+        email: user.email,
+      });
+    } 
+
     // Create the Access and refresh Tokens
     const { access_token, refresh_token } = await signToken(user);
 
@@ -88,6 +142,8 @@ export const loginHandler = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       access_token,
+      isVerified: user.isVerified,
+      email: user.email,
     });
   } catch (err) {
     next(err);
@@ -99,6 +155,29 @@ const logout = (res) => {
   res.cookie('access_token', '', { maxAge: 1 });
   res.cookie('refresh_token', '', { maxAge: 1 });
   res.cookie('logged_in', '', { maxAge: 1 });
+};
+
+export const verifyEmailHandler = async (req, res, next) => {
+  try {
+    const otp = await findOtp({ otp: req.params.otp });
+    if (!otp) {
+			return res.status(401).json({
+				success: false,
+				message: `OTP is expired`,
+        email: '',
+			});
+		};
+
+    await updateUser({email: otp.email}, {isVerified: true});
+
+    res.status(200).json({
+      status: 'success',
+      message: `Email is verified`,
+      email: otp.email,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const refreshAccessTokenHandler = async (req, res, next) => {

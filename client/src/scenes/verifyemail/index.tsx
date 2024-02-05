@@ -7,7 +7,7 @@ import FormInput from "@/components/FormInput";
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-import { toast } from 'react-toastify';
+import { successToast, errorToast } from '@/utils/toast';
 import { useVerifyEmailMutation } from "@/redux/api/authApi";
 
 const LoadingButton = styled(_LoadingButton)`
@@ -35,7 +35,7 @@ const EmailVerificationPage = () => {
     resolver: zodResolver(verificationCodeSchema),
   });
 
-  // ? API Login Mutation
+  // API Mutations
   const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
     useVerifyEmailMutation();
 
@@ -56,7 +56,7 @@ const EmailVerificationPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data?.message);
+      successToast("Email is verified");
       navigate('/login');
     }
     if (isError) {
@@ -64,15 +64,11 @@ const EmailVerificationPage = () => {
       if (Array.isArray((error as any).data.error)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-right',
-          })
+        errorToast(el.message)
         );
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        toast.error((error as any).data.message, {
-          position: 'top-right',
-        });
+        errorToast((error as any).data.message);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

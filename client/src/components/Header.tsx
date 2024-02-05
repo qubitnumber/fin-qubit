@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/redux/store';
 import { useLogoutUserMutation } from '@/redux/api/authApi';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/utils/toast';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
 
 const LoadingButton = styled(_LoadingButton)`
@@ -46,15 +46,11 @@ const Header = () => {
       if (Array.isArray((error as any).data.error)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-right',
-          })
+        errorToast(el.message)
         );
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        toast.error((error as any).data.message, {
-          position: 'top-right',
-        });
+        errorToast((error as any).data.message);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

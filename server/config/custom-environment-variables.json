@@ -7,5 +7,9 @@
   "kvRestApiUrl": "KV_REST_API_URL",
   "kvRestApiToken": "KV_REST_API_TOKEN",
   "kvUrl": "KV_URL",
-  "kvRestApiReadOnlyToken": "KV_REST_API_READ_ONLY_TOKEN"
+  "kvRestApiReadOnlyToken": "KV_REST_API_READ_ONLY_TOKEN",
+  "MailSmtpHost": "MAIL_SMTP_HOST",
+  "MailSmtpPort": "MAIL_SMTP_PORT",
+  "MailSmtpUser": "MAIL_SMTP_USER",
+  "MailSmtpPass": "MAIL_SMTP_PASS"
 }

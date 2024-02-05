@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import FormInput from '@/components/FormInput';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRegisterUserMutation } from '@/redux/api/authApi';
+import { useRegisterUserMutation, useSendOptMutation } from '@/redux/api/authApi';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-import { toast, Bounce } from 'react-toastify';
+import { successToast, errorToast } from '@/utils/toast';
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -53,8 +53,10 @@ const RegisterPage = () => {
   });
 
   // ? Calling the Register Mutation
-  const [registerUser, { isLoading, isSuccess, error, isError }] =
+  const [registerUser, { data, isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
+
+  const [sendOpt] = useSendOptMutation();
 
   const navigate = useNavigate();
 
@@ -66,17 +68,10 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('🦄 User registered successfully', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      successToast('🦄 User registered successfully');
+      if (data?.user.email) {
+        sendOpt({email: data.user.email})
+      }
       navigate('/verifyemail');
     }
 
@@ -86,31 +81,11 @@ const RegisterPage = () => {
       if (Array.isArray((error as any).data.error)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          })
+        errorToast(el.message)
         );
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        toast.error((error as any).data.message, {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
+        errorToast((error as any).data.message);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,9 +98,9 @@ const RegisterPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
+  const onSubmitHandler: SubmitHandler<RegisterInput> = async (values) => {
     // ? Executing the RegisterUser Mutation
-    registerUser(values);
+      await registerUser(values);
   };
 
   return (

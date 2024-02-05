@@ -3,12 +3,13 @@ import { styled } from '@mui/material/styles';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { object, string, TypeOf } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { successToast, errorToast } from '@/utils/toast';
 import FormInput from "@/components/FormInput";
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-import { toast, Bounce } from 'react-toastify';
-import { useLoginUserMutation } from '@/redux/api/authApi';
+
+import { useLoginUserMutation, useSendOptMutation } from '@/redux/api/authApi';
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -48,9 +49,9 @@ const LoginPage = () => {
   });
 
   // ? API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
+  const [loginUser, { data, isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
-
+  const [sendOpt] = useSendOptMutation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,36 +64,27 @@ const LoginPage = () => {
     formState: { isSubmitSuccessful },
   } = methods;
 
+
   useEffect(() => {
     if (isSuccess) {
-      console.log('location', location);
-      toast.success('🦄 You successfully logged in', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      navigate(from);
+      if (!data?.isVerified && data?.email) {
+        sendOpt({email: data.email})
+        navigate('/verifyemail');
+      } else {
+        successToast('🦄 You successfully logged in');
+        navigate(from);
+      }
     }
     if (isError) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (Array.isArray((error as any).data.error)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-right',
-          })
+        errorToast(el.message)
         );
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        toast.error((error as any).data.message, {
-          position: 'top-right',
-        });
+        errorToast((error as any).data.message);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
