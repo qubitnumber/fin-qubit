@@ -18,7 +18,6 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      // window.location.href = '/login';
       navigate('/login');
     }
 
@@ -139,16 +138,18 @@ const Navbar = () => {
             </Link>
           </Box>
         )}
-        <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
-          <Tooltip
-            title='Post settings'
-            onClick={() => navigate('/profile')}
-          >
-            <IconButton sx={{ p: 0 }}>
-              <Avatar sx={{ width: 20, height: 20 }}>N</Avatar>
-            </IconButton>
-          </Tooltip>
-        </Box>
+        {user && (
+          <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
+            <Tooltip
+              title='Post settings'
+              onClick={() => navigate('/profile')}
+            >
+              <IconButton sx={{ p: 0 }}>
+                <Avatar sx={{ width: 20, height: 20 }}>N</Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
       </FlexBetween>
     </FlexBetween>
   );

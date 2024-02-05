@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setUser } from '../features/userSlice';
+import { setUser } from "@/redux/features/userSlice";
 import { IUser } from "@/redux/api/types";
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL as string;

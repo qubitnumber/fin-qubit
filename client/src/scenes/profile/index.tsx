@@ -3,7 +3,6 @@ import { useAppSelector } from '@/redux/store';
 
 const ProfilePage = () => {
   const user = useAppSelector((state) => state.userState.user);
-  console.log('ProfilePage', user);
   return (
     <Container maxWidth='lg'>
       <Box

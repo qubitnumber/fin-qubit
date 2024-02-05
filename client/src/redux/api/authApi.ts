@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LoginInput } from "@/scenes/login";
 import { RegisterInput } from "@/scenes/register";
 import { IGenericResponse, IUser } from "@/redux/api/types";
+import { logout } from "@/redux/features/userSlice";
 import { userApi } from './userApi';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL as string;
@@ -67,6 +68,13 @@ export const authApi = createApi({
           url: 'logout',
           credentials: 'include',
         };
+      },
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(logout());
+        // eslint-disable-next-line no-empty
+        } catch (error) {}
       },
     }),
   }),
