@@ -19,9 +19,16 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://fin-qubit-client.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+})
+
 app.use(cors({
   'credentials': true,
-  'origin': ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
+  'origin': ['https://fin-qubit-client.vercel.app', 'http://localhost:8001'],
 }));
 
 /* ROUTES */
