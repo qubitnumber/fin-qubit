@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({
-  // 'credentials': true,
+  'credentials': true,
   'origin': ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
 }));
 
