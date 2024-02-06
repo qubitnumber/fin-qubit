@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { successToast, errorToast } from '@/utils/toast';
 import FormInput from "@/components/FormInput";
 import { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
 import { useLoginUserMutation, useSendOptMutation } from '@/redux/api/authApi';
 
