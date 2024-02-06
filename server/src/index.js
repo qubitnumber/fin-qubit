@@ -18,7 +18,17 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({ origin: true }))
+
+app.use(cors({
+  "origin": "*",
+  credentials: true,
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204,
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true,
+  'Access-Control-Allow-Methods': ['GET', 'PUT', 'POST'],
+  // origin: ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
+}));
 
 /* ROUTES */
 app.use('/api/users', userRouter);

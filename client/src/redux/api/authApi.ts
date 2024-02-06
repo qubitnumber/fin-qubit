@@ -14,7 +14,6 @@ export const authApi = createApi({
     baseUrl: `${BASE_URL}/api/auth/`,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
-      headers.set('Accept', 'application/json');
       headers.set('Access-Control-Allow-Origin', '*');
       return headers;
     },
