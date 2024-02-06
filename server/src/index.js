@@ -20,14 +20,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({
-  "origin": "*",
-  credentials: true,
+  'credentials': true,
   "preflightContinue": false,
   "optionsSuccessStatus": 204,
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': ['http://localhost:5173', 'https://fin-qubit-client.vercel.app', 'https://fin-qubit-server.vercel.app'],
   'Access-Control-Allow-Credentials': true,
-  'Access-Control-Allow-Methods': ['GET', 'PUT', 'POST'],
-  // origin: ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
+  'Access-Control-Allow-Methods': ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  'origin': ['http://localhost:5173', 'https://fin-qubit-client.vercel.app', 'https://fin-qubit-server.vercel.app'],
 }));
 
 /* ROUTES */
