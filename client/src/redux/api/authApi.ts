@@ -42,7 +42,6 @@ export const authApi = createApi({
           method: 'POST',
           body: data,
           credentials: 'include',
-          mode: 'cors',
         };
       },
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
