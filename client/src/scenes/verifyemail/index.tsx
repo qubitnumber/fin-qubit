@@ -36,7 +36,7 @@ const EmailVerificationPage = () => {
   });
 
   // API Mutations
-  const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
+  const [verifyEmail, { isLoading, isSuccess, isError, error }] =
     useVerifyEmailMutation();
 
   const navigate = useNavigate();

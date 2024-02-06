@@ -52,10 +52,6 @@ const LoginPage = () => {
     useLoginUserMutation();
   const [sendOpt] = useSendOptMutation();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const from = ((location.state as any)?.from.pathname as string) || '/profile';
 
   const {
     reset,
