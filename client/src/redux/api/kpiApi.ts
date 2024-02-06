@@ -10,11 +10,6 @@ const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL as string;
 export const kpiApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}/api/kpi/`,
-    prepareHeaders: (headers) => {
-      headers.set('Content-Type', 'application/json');
-      headers.set('Access-Control-Allow-Origin', '*');
-      return headers;
-    },
   }),
   reducerPath: "main",
   tagTypes: ["Kpis", "Products", "Transactions"],

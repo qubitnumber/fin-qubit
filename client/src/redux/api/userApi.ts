@@ -8,11 +8,6 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}/api/users/`,
-    prepareHeaders: (headers) => {
-      headers.set('Content-Type', 'application/json');
-      headers.set('Access-Control-Allow-Origin', '*');
-      return headers;
-    },
   }),
   tagTypes: ['User'],
   endpoints: (builder) => ({
