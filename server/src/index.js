@@ -24,6 +24,7 @@ app.use(cors({
   origin: ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
 }));
 
+app.options('*', cors());
 /* ROUTES */
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);

@@ -12,7 +12,6 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}/api/auth/`,
-    mode: "cors",
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation<IGenericResponse, RegisterInput>({
@@ -43,6 +42,7 @@ export const authApi = createApi({
           method: 'POST',
           body: data,
           credentials: 'include',
+          mode: 'cors',
         };
       },
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
