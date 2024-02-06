@@ -39,6 +39,7 @@ const Navbar = () => {
   const onLogoutHandler = async () => {
     setSelected("logout")
     logoutUser();
+    navigate('/');
   };
 
   return (
