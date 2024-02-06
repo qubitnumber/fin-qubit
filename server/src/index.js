@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
   credentials: true,
   optionsSuccessStatus: 200,
-  origin: true
+  origin: ['http://localhost:5173', 'https://fin-qubit-client.vercel.app'],
 }));
 
 /* ROUTES */
