@@ -7,6 +7,7 @@ import { userApi } from './userApi';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL as string;
 
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
@@ -47,7 +48,7 @@ export const authApi = createApi({
         try {
           const { data } = await queryFulfilled;
           if (data.isVerified) {
-            await dispatch(userApi.endpoints.getMe.initiate(null));
+            dispatch(userApi.endpoints.getMe.initiate(null, {forceRefetch: true}));
           }
         } catch (error) {
           console.log(error);

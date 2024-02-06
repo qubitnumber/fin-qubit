@@ -8,7 +8,6 @@ import FormInput from "@/components/FormInput";
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadingButton as _LoadingButton } from '@mui/lab';
-
 import { useLoginUserMutation, useSendOptMutation } from '@/redux/api/authApi';
 
 const LoadingButton = styled(_LoadingButton)`
@@ -56,7 +55,7 @@ const LoginPage = () => {
   const location = useLocation();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const from = ((location.state as any)?.from.pathname as string) || '/profile';
+  // const from = ((location.state as any)?.from.pathname as string) || '/profile';
 
   const {
     reset,
@@ -72,7 +71,7 @@ const LoginPage = () => {
         navigate('/verifyemail');
       } else {
         successToast('🦄 You successfully logged in');
-        navigate(from);
+        navigate('/dashboard');
       }
     }
     if (isError) {

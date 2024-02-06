@@ -13,6 +13,7 @@ import UnauthorizePage from "@/scenes/unauthorize"
 import EmailVerificationPage from "@/scenes/verifyemail"
 import LoginPage from "@/scenes/login"
 import RegisterPage from "@/scenes/register"
+import HomePage from "@/scenes/home"
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -23,6 +24,7 @@ function App() {
         <Box width="100%" height="100%" padding="1rem 2rem 4rem 2rem">
           <Navbar />
           <Routes>
+          <Route path='/' element={<HomePage />} />
             <Route element={<RequireUser allowedRoles={['user', 'admin']} />}>
               <Route path='profile' element={<ProfilePage />} />
             </Route>
