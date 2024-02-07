@@ -24,6 +24,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   origin: ['https://fin-qubit-client.vercel.app', 'https://fin-qubit-server.vercel.app', 'http://localhost:8001'],
+  "Access-Control-Allow-Origin": ['https://fin-qubit-client.vercel.app', 'https://fin-qubit-server.vercel.app', 'http://localhost:8001'],
 }));
 
 /* ROUTES */
