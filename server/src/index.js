@@ -39,12 +39,6 @@ app.get(
   }
 );
 
-app.all('*', (req, res, next) => {
-  const err = new Error(`Route ${req.originalUrl} not found`);
-  err.statusCode = 404;
-  next(err);
-});
-
 app.use((err, req, res, next) => {
   err.status = err.status || 'error';
   err.statusCode = err.statusCode || 500;
