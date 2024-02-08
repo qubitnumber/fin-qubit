@@ -18,11 +18,7 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-if (process.env.NODE_ENV === 'development') {
-  const middle = cors({ origin: true, credentials: true });
-  app.use(middle);
-}
+app.use(cors());
 
 /* ROUTES */
 app.use('/api/users', userRouter);
