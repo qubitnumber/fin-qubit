@@ -19,10 +19,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors({
-  credentials: true,
-  origin: ['https://fin-qubit-client.vercel.app', 'http://localhost:8001']
-}));
+app.use(cors());
 
 /* ROUTES */
 app.use('/api/users', userRouter);
@@ -38,15 +35,11 @@ app.get(
   }
 );
 
-// app.all('*', (req, res, next) => {
-//   if (req.method === 'OPTIONS') {
-//     res.status(200).end()
-//     return
-//   }
-//   const err = new Error(`Route ${req.originalUrl} not found`);
-//   err.statusCode = 404;
-//   next(err);
-// });
+app.all('*', (req, res, next) => {
+  const err = new Error(`Route ${req.originalUrl} not found`);
+  err.statusCode = 404;
+  next(err);
+});
 
 app.use((err, req, res, next) => {
   err.status = err.status || 'error';
