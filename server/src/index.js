@@ -19,7 +19,10 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: ['https://fin-qubit-client.vercel.app', 'http://localhost:8001']
+}));
 
 /* ROUTES */
 app.use('/api/users', userRouter);
