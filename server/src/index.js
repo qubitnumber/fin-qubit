@@ -10,6 +10,7 @@ import connectDB from './utils/connectDB.js';
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import kpiRoutes from "./routes/kpi.js";
+import enableCors from './middlewares/enableCors';
 
 const app = express();
 
@@ -25,12 +26,12 @@ app.use(cors({
 }));
 
 /* ROUTES */
-app.use('/api/users', userRouter);
-app.use('/api/auth', authRouter);
-app.use("/api/kpi", kpiRoutes);
+app.use('/api/users', enableCors, userRouter);
+app.use('/api/auth', enableCors, authRouter);
+app.use("/api/kpi", enableCors, kpiRoutes);
 
 app.get(
-  '/api/healthChecker', (req, res, next) => {
+  '/api/healthChecker', enableCors, (req, res, next) => {
     res.status(200).json({
       status: 'success',
       message: 'Welcome 😂😂👈👈',
