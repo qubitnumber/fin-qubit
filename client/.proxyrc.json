@@ -1,0 +1,5 @@
+{
+  "/api": {
+    "target": "https://fin-qubit-server.vercel.app"
+  }
+}

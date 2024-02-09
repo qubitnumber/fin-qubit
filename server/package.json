@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "proxy": "https://fin-qubit-server.vercel.app",
   "scripts": {
     "start": "node -r dotenv/config ./src/index.js",
     "dev": "nodemon -r dotenv/config ./src/index.js",
