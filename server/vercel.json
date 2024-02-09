@@ -12,7 +12,8 @@
       "dest": "src/index.js",
       "headers": {
         "Access-Control-Allow-Origin": "https://fin-qubit-client.vercel.app",
-        "Access-Control-Allow-Methods": "GET,POST, PUT, DELETE, PATCH, OPTIONS"
+        "Access-Control-Allow-Methods": "GET,POST, PUT, DELETE, PATCH, OPTIONS",
+        "Access-Control-Allow-Credentials": true
       }
     }
   ]
