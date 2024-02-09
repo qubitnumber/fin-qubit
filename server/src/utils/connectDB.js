@@ -1,7 +1,7 @@
 import config from 'config';
 import mongoose from 'mongoose';
 
-const dbUrl = config.get('dbUrl');
+const dbUrl = process.env.MONGO_URL; // config.get('dbUrl');
 const connectDB = async () => {
   try {
     await mongoose.connect(dbUrl);
