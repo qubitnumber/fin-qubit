@@ -19,24 +19,24 @@ app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cors({
-//   credentials: true,
-//   origin: 'http://localhost:5173',
-//   "preflightContinue": false,
-//   "optionsSuccessStatus": 204,
-//   "origin": "*",
-//   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   "preflightContinue": false,
-//   "Access-Control-Allow-Origin": 'http://localhost:5173'
-// }));
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:5173',
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204,
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "Access-Control-Allow-Origin": 'http://localhost:5173'
+}));
 
-// app.use((req, res, next) => {
-//   if (req.method === "OPTIONS") {
-//     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//     return res.status(200).json({});
-//   }
-//   next();
-// });
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 /* ROUTES */
 app.use('/api/users', userRouter);
