@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
   credentials: true,
-  Origin: "https://fin-qubit-client.vercel.app"
+  origin: "https://fin-qubit-client.vercel.app"
 }));
 
 app.use((req, res, next) => {
