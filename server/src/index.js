@@ -20,7 +20,10 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  credentials: true
+  "credentials": true,
+  "Access-Control-Allow-Origin": ["https://fin-qubit-client.vercel.app", "http://localhost:5173"],
+  "Access-Control-Allow-Methods": "GET,POST, PUT, DELETE, PATCH, OPTIONS",
+  "Access-Control-Allow-Credentials": true
 }));
 
 app.options('/*', (_, res) => {
