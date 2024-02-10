@@ -13,11 +13,11 @@ const sendingMail = async(email, title, body) =>{
     };
 
     const transporter = nodemailer.createTransport({
-      host: config.get('MailSmtpHost'),
-      port: parseInt(config.get('MailSmtpPort')),
+      host: app.get('MailSmtpHost'),
+      port: parseInt(app.get('MailSmtpPort')),
       auth: {
-        user: config.get('MailSmtpUser'),
-        pass: config.get('MailSmtpPass')
+        user: app.get('MailSmtpUser'),
+        pass: app.get('MailSmtpPass')
       }
     });
 

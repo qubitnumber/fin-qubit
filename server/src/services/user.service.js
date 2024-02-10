@@ -57,12 +57,12 @@ export const createOpt = async (input) => {
 export const signToken = async (user) => {
   // Sign the access token
   const access_token = signJwt({ sub: user._id }, 'accessTokenPrivateKey', {
-    expiresIn: `${config.get('accessTokenExpiresIn')}m`,
+    expiresIn: `${app.get('accessTokenExpiresIn')}m`,
   });
 
   // Sign the refresh token
   const refresh_token = signJwt({ sub: user._id }, 'refreshTokenPrivateKey', {
-    expiresIn: `${config.get('refreshTokenExpiresIn')}m`,
+    expiresIn: `${app.get('refreshTokenExpiresIn')}m`,
   });
 
   // Create a Session

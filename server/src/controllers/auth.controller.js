@@ -19,18 +19,18 @@ export const excludedFields = ['password'];
 // Cookie options
 const accessTokenCookieOptions = {
   expires: new Date(
-    Date.now() + config.get('accessTokenExpiresIn') * 60 * 1000
+    Date.now() + app.get('accessTokenExpiresIn') * 60 * 1000
   ),
-  maxAge: config.get('accessTokenExpiresIn') * 60 * 1000,
+  maxAge: app.get('accessTokenExpiresIn') * 60 * 1000,
   httpOnly: true,
   sameSite: 'lax',
 };
 
 const refreshTokenCookieOptions = {
   expires: new Date(
-    Date.now() + config.get('refreshTokenExpiresIn') * 60 * 1000
+    Date.now() + app.get('refreshTokenExpiresIn') * 60 * 1000
   ),
-  maxAge: config.get('refreshTokenExpiresIn') * 60 * 1000,
+  maxAge: app.get('refreshTokenExpiresIn') * 60 * 1000,
   httpOnly: true,
   sameSite: 'lax',
 };
@@ -210,7 +210,7 @@ export const refreshAccessTokenHandler = async (req, res, next) => {
 
     // Sign new access token
     const access_token = signJwt({ sub: user._id }, 'accessTokenPrivateKey', {
-      expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`,
+      expiresIn: `${app.get<number>('accessTokenExpiresIn')}m`,
     });
 
     // Send the access token as cookie

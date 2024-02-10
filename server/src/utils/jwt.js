@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from 'config';
 
 export const signJwt = (payload, key, options) => {
-  const privateKey = config.get(key).replace(/\\n/g, '\n');
+  const privateKey = app.get(key).replace(/\\n/g, '\n');
 
   return jwt.sign(payload, privateKey, {
     ...(options && options),
@@ -12,7 +12,7 @@ export const signJwt = (payload, key, options) => {
 
 export const verifyJwt = (token, key) => {
   try {
-    const publicKey = config.get(key).replace(/\\n/g, '\n');
+    const publicKey = app.get(key).replace(/\\n/g, '\n');
     return jwt.verify(token, publicKey);
   } catch (error) {
     return null;

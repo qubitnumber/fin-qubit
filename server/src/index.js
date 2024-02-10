@@ -60,7 +60,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = config.get('port');
+const port = app.get('port');
 app.listen(port, () => {
   console.log(`Server started on port: ${port}`);
   connectDB();
