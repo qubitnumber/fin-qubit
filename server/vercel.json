@@ -12,9 +12,9 @@
       "dest": "src/index.js",
       "headers": {
         "origin": "http://localhost:5173",
-        "optionsSuccessStatus": 204,
+        "optionsSuccessStatus": "204",
         "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-        "preflightContinue": false,
+        "preflightContinue": "false",
         "Access-Control-Allow-Origin": "http://localhost:5173"
       }
     }
