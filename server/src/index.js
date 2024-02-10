@@ -20,14 +20,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:5173',
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204,
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "Access-Control-Allow-Origin": 'http://localhost:5173'
+  credentials: true
 }));
 
 app.use((req, res, next) => {
