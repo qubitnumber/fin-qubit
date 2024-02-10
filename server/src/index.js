@@ -1,4 +1,4 @@
-import "dotenv/config"
+import * as dotenv from 'dotenv';
 import config from 'config';
 import express from "express";
 import bodyParser from "body-parser";
@@ -11,9 +11,9 @@ import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import kpiRoutes from "./routes/kpi.js";
 
+dotenv.config();
 const app = express();
 
-app.use(express.static('dist'));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
