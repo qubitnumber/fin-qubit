@@ -6,10 +6,10 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from 'cookie-parser';
-import connectDB from './utils/connectDB.js';
-import userRouter from './routes/user.js';
-import authRouter from './routes/auth.js';
-import kpiRoutes from "./routes/kpi.js";
+import connectDB from './src/utils/connectDB.js';
+import userRouter from './src/routes/user.js';
+import authRouter from './src/routes/auth.js';
+import kpiRoutes from "./src/routes/kpi.js";
 
 dotenv.config();
 const app = express();
