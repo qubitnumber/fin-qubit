@@ -19,10 +19,13 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.options('*', cors())
 app.use(cors({
   credentials: true
 }));
+
+app.options('/*', (_, res) => {
+  res.sendStatus(200);
+});
 
 /* ROUTES */
 app.use('/api/users', userRouter);
