@@ -19,7 +19,7 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.options('/api', cors()) 
+app.options('*', cors())
 app.use(cors({
   credentials: true
 }));
