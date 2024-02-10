@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const dbUrl = process.env.MONGO_URL; // app.get('dbUrl');
+const dbUrl = process.env.MONGO_URL; // config.util.getEnv('dbUrl');
 const connectDB = async () => {
   try {
-    await mongoose.connect(app.get('dbUrl'));
+    await mongoose.connect(config.util.getEnv('dbUrl'));
     console.log('DB Connected Successfully ✅');
   } catch (error) {
     console.log(error.message);
