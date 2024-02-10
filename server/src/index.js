@@ -23,8 +23,12 @@ app.use(cors({
   "credentials": true
 }));
 
-app.options('/*', (_, res) => {
-  res.sendStatus(200);
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
 });
 
 /* ROUTES */
