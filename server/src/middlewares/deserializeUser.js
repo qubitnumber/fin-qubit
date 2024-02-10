@@ -8,6 +8,7 @@ export const deserializeUser = async (req, res, next) => {
     // Get the token
     let access_token;
     if (
+      req.headers &&
       req.headers.authorization &&
       req.headers.authorization.startsWith('Bearer')
     ) {
