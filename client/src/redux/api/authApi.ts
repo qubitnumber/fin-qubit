@@ -47,7 +47,7 @@ export const authApi = createApi({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          if (data.isVerified) {
+          if (data?.isVerified) {
             dispatch(userApi.endpoints.getMe.initiate(null, {forceRefetch: true}));
           }
         } catch (error) {
